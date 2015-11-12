@@ -65,8 +65,14 @@ namespace PairEngine.Tests
             var i = new Person("suqi");
             var j = new Person("chris");
             i.Link(j);
+	        var k = new Person("Nan");
+	        var l = new Person("Winne");
+			k.Link(l);
+            var m = new Person("Peach");
+            var n = new Person("LY");
+            m.Link(n);
 
-            var pairEngine = new PairEngine(new[] { a, b, c, d, e, f, g, h, i, j });
+            var pairEngine = new PairEngine(new[] { a, b, c, d, e, f, g, h, i, j, k, l });
             pairEngine.PairUp();
 
             AssertConsistency(pairEngine.PairList);

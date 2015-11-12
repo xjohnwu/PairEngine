@@ -8,9 +8,9 @@ namespace PairEngine
 {
     public class PairEngine
     {
-        private IList<Person> _participants;
+        private readonly IList<Person> _participants;
         private int _retry;
-        private IDictionary<Person, Person> _pairList = new Dictionary<Person, Person>();
+        private readonly IDictionary<Person, Person> _pairList = new Dictionary<Person, Person>();
 
         public PairEngine(IList<Person> participants)
         {
@@ -20,9 +20,9 @@ namespace PairEngine
         public void PairUp()
         {
             _pairList.Clear();
-            IList<Person> _toListAvailable = new List<Person>(_participants);
+            IList<Person> toListAvailable = new List<Person>(_participants);
 
-            Random ran = new Random(_retry);
+            var ran = new Random();
 
             foreach (var fromPerson in _participants)
             {
@@ -32,9 +32,9 @@ namespace PairEngine
                 do
                 {
                     if (toPerson != null) personTried.Add(toPerson);
-                    var index = ran.Next(_toListAvailable.Count);
-                    toPerson = _toListAvailable[index];
-                    if (personTried.Count == _toListAvailable.Count)
+                    var index = ran.Next(toListAvailable.Count);
+                    toPerson = toListAvailable[index];
+                    if (personTried.Count == toListAvailable.Count)
                     {
                         PrintResult();
                         if (_retry >= 100)
@@ -49,7 +49,7 @@ namespace PairEngine
                 } while (toPerson == fromPerson || toPerson.IsCouple(fromPerson));
 
                 _pairList.Add(fromPerson, toPerson);
-                _toListAvailable.Remove(toPerson);
+                toListAvailable.Remove(toPerson);
             }
         }
 
